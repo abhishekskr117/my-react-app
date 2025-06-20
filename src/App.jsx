@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import './App.css';
 import UserStats from './components/UserStats';
 import Achievements from './components/Achievements';

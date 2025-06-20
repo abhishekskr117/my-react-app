@@ -5,6 +5,8 @@ import App from './App.jsx';
 import { Box } from '@mui/material';
 import Sidebar from './components/Sidebar';
 import LoginModal from './components/LoginModal';
+import ChatBox from './components/ChatBox';
+
 
 function RootApp() {
   const [user, setUser] = useState(null); 
@@ -15,10 +17,11 @@ function RootApp() {
 
   return (
     <Box sx={{ display: 'flex', maxHeight: '100vh' }}>
-      <Sidebar handleLogout={setUser} />
-      <Box sx={{ flexGrow: 1, overflow: 'auto' }}>
-        <App user={user}/>
-      </Box>
+       <Sidebar handleLogout={() => setUser(null)} />
+         <Box sx={{ flexGrow: 1, overflow: 'auto' }}>
+            <App user={user} />
+         </Box>
+       <ChatBox />
     </Box>
   );
 }
