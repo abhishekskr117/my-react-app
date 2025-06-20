@@ -1,7 +1,5 @@
 import { useState } from 'react';
 import './App.css';
-import LoginModal from './components/LoginModal';
-import Sidebar from './components/Sidebar';
 import UserStats from './components/UserStats';
 import Achievements from './components/Achievements';
 import Collections from './components/Collections';
@@ -9,17 +7,11 @@ import MatchGraph from './components/MatchGraph';
 import { Box, Typography } from '@mui/material';
 import StatsDashboard from './components/StatsDashboard'; 
 
-function App() {
-  const [user, setUser] = useState(null);
-
-  if (!user) {
-    return <LoginModal open={true} handleLogin={(username) => setUser(username)} />;
-  }
+function App({user}) {
 
   return (
-    <Box  display="flex" justifyContent="space-between" alignItems="center">
-      <Sidebar handleLogout={setUser}/>
-      <Box p={3} flex={1}>
+    <Box  display="flex" justifyContent="space-between" className="app-container">
+      <Box p={3} flex={1} className="main-content">
         <Typography variant="h4">Welcome, {user}</Typography>
         <UserStats />
         <Collections />
@@ -28,6 +20,7 @@ function App() {
         <MatchGraph />
     </Box>
     </Box>
+    
   );
 }
 
