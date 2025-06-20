@@ -8,7 +8,6 @@ import { Box, Typography } from '@mui/material';
 import StatsDashboard from './components/StatsDashboard'; 
 
 function App({user}) {
-console.log("user", user);
 
   return (
     <Box  display="flex" justifyContent="space-between" className="app-container">
