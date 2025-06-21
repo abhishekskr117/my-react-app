@@ -12,22 +12,38 @@ import {
 import ChatIcon from '@mui/icons-material/Chat';
 import CloseIcon from '@mui/icons-material/Close';
 
-export default function ChatBox({handleLogout}) {
+export default function ChatBox({ handleLogout }) {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { from: 'bot', text: 'Welcome! Ask anything about your Valorant stats.' }
+    { from: 'bot', text: 'Welcome! Ask anything about your Valorant stats. But for now I am repeating what ever you say, Sorry!' }
   ]);
   const [input, setInput] = useState('');
 
   const sendMessage = () => {
-    if (!input.trim()) return;
-    setMessages(prev => [
-      ...prev,
-      { from: 'user', text: input },
-      { from: 'bot', text: `Hey! Abhishek ${input}` }
-    ]);
+    const trimmed = input.trim();
+    if (!trimmed) return;
+
+    if (trimmed === '~~logout') {
+      handleLogout(null);
+    } else if (trimmed === '~~clear') {
+      setMessages([
+        { from: 'bot', text: 'Ask me anything about your Valorant stats. But for now I am repeating what ever you say, Sorry!' }
+      ]);
+    } else {
+      setMessages(prev => [
+        ...prev,
+        { from: 'user', text: trimmed },
+        { from: 'bot', text: `You said:  ${trimmed}` }
+      ]);
+    }
+
     setInput('');
-    if (input === '~~logout') { handleLogout(null)}
+  };
+
+  const clearChat = () => {
+    setMessages([
+      { from: 'bot', text: 'Ask me anything about your Valorant stats. But for now I am repeating what ever you say, Sorry!' }
+    ]);
   };
 
   return (
@@ -46,7 +62,6 @@ export default function ChatBox({handleLogout}) {
       >
         <ChatIcon />
       </IconButton>
-
       <Slide direction="left" in={open} mountOnEnter unmountOnExit>
         <Paper
           elevation={3}
@@ -70,10 +85,8 @@ export default function ChatBox({handleLogout}) {
               <CloseIcon />
             </IconButton>
           </Box>
-
           <Divider sx={{ my: 2 }} />
-
-          <Box sx={{ flexGrow: 1, overflowY: 'auto', mb: 1,maxHeight: 'calc(100vh - 170px)'  }}>
+          <Box sx={{ flexGrow: 1, overflowY: 'auto', mb: 1, maxHeight: 'calc(100vh - 170px)' }}>
             {messages.map((msg, i) => (
               <Box key={i} sx={{ textAlign: msg.from === 'user' ? 'right' : 'left', mb: 1 }}>
                 <Box
@@ -92,7 +105,6 @@ export default function ChatBox({handleLogout}) {
               </Box>
             ))}
           </Box>
-
           <Box sx={{ display: 'flex', gap: 1, bgcolor: '#2c2c2c', p: 1, borderRadius: 1 }}>
             <TextField
               sx={{ '& .MuiInputBase-input': { color: 'white' } }}
@@ -107,6 +119,9 @@ export default function ChatBox({handleLogout}) {
             <Button variant="contained" onClick={sendMessage} sx={{ bgcolor: '#8F553E' }}>
               Send
             </Button>
+             <IconButton onClick={clearChat} sx={{ color: '#8F553E' }}>
+              <CloseIcon />
+            </IconButton>
           </Box>
         </Paper>
       </Slide>
