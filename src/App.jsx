@@ -1,5 +1,4 @@
 import './App.css';
-import UserStats from './components/UserStats';
 import Achievements from './components/Achievements';
 import Collections from './components/Collections';
 import MatchGraph from './components/MatchGraph';
@@ -12,7 +11,6 @@ function App({user}) {
     <Box  display="flex" justifyContent="space-between" className="app-container">
       <Box p={3} flex={1} className="main-content">
         <Typography variant="h4">Welcome, {user}</Typography>
-        <UserStats />
         <Collections />
         <StatsDashboard />
         <Achievements />

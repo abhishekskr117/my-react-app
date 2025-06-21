@@ -1,13 +1,14 @@
 import { useState } from 'react';
-import { Modal, Box, TextField, Button, Typography } from '@mui/material';
+import {
+  Dialog, DialogTitle, DialogContent, TextField, Button, Typography
+} from '@mui/material';
 
-const style = {
-  position: 'absolute', top: '50%', left: '50%',
-  transform: 'translate(-50%, -50%)',
-  bgcolor: 'background.paper', boxShadow: 24, p: 4, borderRadius: 2
-};
-
-const validCredentials = { username: 'Abhishek', password: 'Abhi123' };
+const validUsers = [
+  { username: 'Razefoot', password: 'Razefoot' },
+  { username: 'PhoenixFire', password: 'PhoenixFire' },
+  { username: 'BattleSage', password: 'BattleSage' },
+  { username: 'Chambur', password: 'Chambur' }
+];
 
 export default function LoginModal({ open, handleLogin }) {
   const [username, setUsername] = useState('');
@@ -15,22 +16,47 @@ export default function LoginModal({ open, handleLogin }) {
   const [error, setError] = useState('');
 
   const handleSubmit = () => {
-    if (username === validCredentials.username && password === validCredentials.password) {
-      handleLogin(username);
+    const user = validUsers.find(
+      (u) => u.username === username && u.password === password
+    );
+    if (user) {
+      handleLogin(user.username);
     } else {
       setError('Invalid credentials!');
     }
   };
 
   return (
-    <Modal open={open}>
-      <Box sx={style}>
-        <Typography variant="h6" mb={2}>Login</Typography>
-        <TextField fullWidth margin="normal" label="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
-        <TextField fullWidth margin="normal" label="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-        {error && <Typography color="error">{error}</Typography>}
-        <Button variant="contained" fullWidth sx={{ mt: 2 }} onClick={handleSubmit}>Login</Button>
-      </Box>
-    </Modal>
+    <Dialog open={open}>
+      <DialogTitle>Login</DialogTitle>
+      <DialogContent>
+        <TextField
+          label="Username"
+          fullWidth
+          margin="dense"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <TextField
+          label="Password"
+          fullWidth
+          margin="dense"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        {error && (
+          <Typography color="error" variant="body2">{error}</Typography>
+        )}
+        <Button
+          fullWidth
+          variant="contained"
+          sx={{ mt: 2 }}
+          onClick={handleSubmit}
+        >
+          Login
+        </Button>
+      </DialogContent>
+    </Dialog>
   );
 }

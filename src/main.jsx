@@ -64,11 +64,11 @@ function RootApp() {
 
   return (
     <Box className={classes.rootContainer}>
-      <Sidebar handleLogout={handleLogout} />
+      <Sidebar handleLogout={handleLogout} user={user}/>
       <Box className={classes.contentContainer}>
         <App user={user} />
       </Box>
-      <ChatBox />
+      <ChatBox handleLogout = {handleLogout}/>
     </Box>
   );
 }
