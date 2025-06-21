@@ -4,7 +4,7 @@ const stats = [
   { label: 'K/D Ratio', value: '1.42' },
   { label: 'Win Rate', value: '59%' },
   { label: 'Total Matches', value: '128' },
-  { label: 'Most Played Agent', value: 'Jett' },
+  { label: 'Most Played Agent', value: 'Sage' },
   { label: 'Average Score', value: '237' },
   { label: 'Headshots', value: '715' },
 ];
