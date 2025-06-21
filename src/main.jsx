@@ -7,21 +7,27 @@ import Sidebar from './components/Sidebar';
 import LoginModal from './components/LoginModal';
 import ChatBox from './components/ChatBox';
 
-
 function RootApp() {
   const [user, setUser] = useState(null); 
-  
-    if (!user) {
+
+  if (!user) {
     return <LoginModal open={true} handleLogin={(username) => setUser(username)} />;
-    }
+  }
 
   return (
-    <Box sx={{ display: 'flex', maxHeight: '100vh' }}>
-       <Sidebar handleLogout={() => setUser(null)} />
-         <Box sx={{ flexGrow: 1, overflow: 'auto' }}>
-            <App user={user} />
-         </Box>
-       <ChatBox />
+    <Box
+      sx={{
+        display: 'flex',
+        width: '100vw',
+        height: '100vh',
+        overflow: 'hidden',
+      }}
+    >
+      <Sidebar handleLogout={() => setUser(null)} />
+      <Box sx={{ flexGrow: 1, overflowY: 'auto' }}>
+        <App user={user} />
+      </Box>
+      <ChatBox />
     </Box>
   );
 }

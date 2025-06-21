@@ -31,7 +31,7 @@ export default function ChatBox() {
       <Typography variant="h6" gutterBottom>Velo Assist</Typography>
       <Divider sx={{ mb: 2 }} />
       
-      <Box sx={{ flexGrow: 1, overflowY: 'auto', mb: 1 }}>
+      <Box sx={{ flexGrow: 1, overflowY: 'auto', mb: 1, maxHeight: 'calc(100vh - 150px)' }}>
         {messages.map((msg, i) => (
           <Box
             key={i}
@@ -59,6 +59,7 @@ export default function ChatBox() {
 
       <Box sx={{ display: 'flex', gap: 1 ,bgcolor: '#2c2c2c', p: 1, borderRadius: 1 }}>
         <TextField
+          sx={{'& .MuiInputBase-input': { color: 'white' }}}
           size="small"
           variant="outlined"
           fullWidth

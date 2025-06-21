@@ -24,7 +24,7 @@ export default function Sidebar({ handleLogout }) {
 
   return (
     <Box
-      width={collapsed ? 80 : 240}
+      width={collapsed ? 50 : 240}
       bgcolor="#8F553E"
       p={2}
       height="97vh"
