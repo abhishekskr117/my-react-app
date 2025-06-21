@@ -39,7 +39,6 @@ export default function Sidebar({ handleLogout }) {
             <MenuIcon />
           </IconButton>
         </Box>
-
         <List>
           {friends.map((friend) => (
             <ListItem key={friend.name} divider>
