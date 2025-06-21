@@ -7,7 +7,7 @@ const style = {
   bgcolor: 'background.paper', boxShadow: 24, p: 4, borderRadius: 2
 };
 
-const validCredentials = { username: 'velo', password: 'velo' };
+const validCredentials = { username: 'Abhishek', password: 'Abhi123' };
 
 export default function LoginModal({ open, handleLogin }) {
   const [username, setUsername] = useState('');
