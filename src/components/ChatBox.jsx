@@ -38,17 +38,18 @@ export default function ChatBox({ handleLogout }) {
     }
 
     setInput('');
-  };
+  };  
 
   const clearChat = () => {
-    setMessages([
+    messages?.length > 1 && setMessages([
       { from: 'bot', text: 'Ask me anything about your Valorant stats. But for now I am repeating what ever you say, Sorry!' }
     ]);
+    setInput('');
   };
 
   return (
     <>
-      <IconButton
+      {!open && (<IconButton
         onClick={() => setOpen(!open)}
         sx={{
           position: 'fixed',
@@ -61,7 +62,7 @@ export default function ChatBox({ handleLogout }) {
         }}
       >
         <ChatIcon />
-      </IconButton>
+      </IconButton>)}
       <Slide direction="left" in={open} mountOnEnter unmountOnExit>
         <Paper
           elevation={3}
@@ -119,9 +120,9 @@ export default function ChatBox({ handleLogout }) {
             <Button variant="contained" onClick={sendMessage} sx={{ bgcolor: '#8F553E' }}>
               Send
             </Button>
-             <IconButton onClick={clearChat} sx={{ color: '#8F553E' }}>
+            {(input || messages?.length > 1) && ( <IconButton onClick={clearChat} sx={{ color: '#8F553E' }}>
               <CloseIcon />
-            </IconButton>
+            </IconButton>)}
           </Box>
         </Paper>
       </Slide>
