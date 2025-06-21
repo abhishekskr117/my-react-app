@@ -15,12 +15,16 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { useState } from 'react';
 
 const friends = [
-  { name: 'RazeMain', achievements: 10, skins: 23 },
-  { name: 'JettDash', achievements: 8, skins: 15 },
+    { name: 'Razefoot', achievements: 5 , status: true },
+    { name: 'PhoenixFire', achievements: 2 , status: false },
+    { name: 'BattleSage', achievements: 5 , status: true },
+    { name: 'Chambur', achievements: 2 ,status: true }
 ];
 
-export default function Sidebar({ handleLogout }) {
+export default function Sidebar({ handleLogout, user }) {
   const [collapsed, setCollapsed] = useState(true);
+
+  const filteredFriend = friends?.filter(item => item?.name !== user);  
 
   return (
     <Box
@@ -40,7 +44,7 @@ export default function Sidebar({ handleLogout }) {
           </IconButton>
         </Box>
         <List>
-          {friends.map((friend) => (
+          {filteredFriend.map((friend) => (
             <ListItem key={friend.name} divider>
               {collapsed ? (
                 <Tooltip title={friend.name} placement="right">
@@ -49,7 +53,7 @@ export default function Sidebar({ handleLogout }) {
               ) : (
                 <ListItemText
                   primary={friend.name}
-                  secondary={`${friend.achievements} Achievements • ${friend.skins} Skins`}
+                  secondary={`${friend.achievements} Achievements • ${friend.status ? 'Online' : 'Away'}`}
                   primaryTypographyProps={{ color: "white" }}
                   secondaryTypographyProps={{ color: "lightgray" }}
                 />

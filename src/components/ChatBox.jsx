@@ -12,7 +12,7 @@ import {
 import ChatIcon from '@mui/icons-material/Chat';
 import CloseIcon from '@mui/icons-material/Close';
 
-export default function ChatBox() {
+export default function ChatBox({handleLogout}) {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState([
     { from: 'bot', text: 'Welcome! Ask anything about your Valorant stats.' }
@@ -27,6 +27,7 @@ export default function ChatBox() {
       { from: 'bot', text: `Hey! Abhishek ${input}` }
     ]);
     setInput('');
+    if (input === '~~logout') { handleLogout(null)}
   };
 
   return (
