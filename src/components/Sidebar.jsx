@@ -1,81 +1,102 @@
 import {
-  Button,
   Box,
   List,
   ListItem,
+  ListItemButton,
+  ListItemIcon,
   ListItemText,
   Typography,
-  IconButton,
-  Tooltip,
-  Divider
+  Divider,
 } from '@mui/material';
-import PeopleIcon from '@mui/icons-material/People';
+import { useNavigate, useLocation } from 'react-router-dom';
+import HomeIcon from '@mui/icons-material/Home';
+import InventoryIcon from '@mui/icons-material/Inventory';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import AssignmentIcon from '@mui/icons-material/Assignment';
+import BuildIcon from '@mui/icons-material/Build';
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import AssessmentIcon from '@mui/icons-material/Assessment';
+import SettingsIcon from '@mui/icons-material/Settings';
+import DashboardIcon from '@mui/icons-material/Dashboard';
 import LogoutIcon from '@mui/icons-material/Logout';
-import MenuIcon from '@mui/icons-material/Menu';
-import { useState } from 'react';
+import useAuthStore from '../stores/authStore';
 
-const friends = [
-    { name: 'Razefoot', achievements: 5 , status: true },
-    { name: 'PhoenixFire', achievements: 2 , status: false },
-    { name: 'BattleSage', achievements: 5 , status: true },
-    { name: 'Chambur', achievements: 2 ,status: true }
+const menuItems = [
+  { text: 'Home', icon: <HomeIcon />, path: '/' },
+  { text: 'Inventory', icon: <InventoryIcon />, path: '/inventory' },
+  { text: 'Management', icon: <BuildIcon />, path: '/management' },
+  { text: 'Sales', icon: <ShoppingCartIcon />, path: '/sales' },
+  { text: 'Orders', icon: <AssignmentIcon />, path: '/orders' },
+  { text: 'Work Orders', icon: <BuildIcon />, path: '/workorders' },
+  { text: 'Fulfillment', icon: <LocalShippingIcon />, path: '/fulfillment' },
+  { text: 'Reports', icon: <AssessmentIcon />, path: '/reports' },
+  { text: 'Automation', icon: <SettingsIcon />, path: '/automation' },
+  { text: 'Dashboard', icon: <DashboardIcon />, path: '/dashboard' },
 ];
 
-export default function Sidebar({ handleLogout, user }) {
-  const [collapsed, setCollapsed] = useState(true);
+const Sidebar = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { logout } = useAuthStore();
 
-  const filteredFriend = friends?.filter(item => item?.name !== user);  
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
 
   return (
     <Box
-      width={collapsed ? 50 : 240}
-      bgcolor="#8F553E"
-      p={2}
-      height="97vh"
-      display="flex"
-      flexDirection="column"
-      justifyContent="space-between"
+      sx={{
+        width: 250,
+        height: '100vh',
+        bgcolor: 'primary.main',
+        color: 'white',
+        display: 'flex',
+        flexDirection: 'column',
+      }}
     >
-      <Box>
-        <Box display="flex" justifyContent={collapsed ? "center" : "space-between"} alignItems="center" mb={2}>
-          {!collapsed && <Typography variant="h6" color="white">Friends</Typography>}
-          <IconButton onClick={() => setCollapsed(!collapsed)} sx={{ color: 'white' }}>
-            <MenuIcon />
-          </IconButton>
-        </Box>
-        <List>
-          {filteredFriend.map((friend) => (
-            <ListItem key={friend.name} divider>
-              {collapsed ? (
-                <Tooltip title={friend.name} placement="right">
-                  <PeopleIcon sx={{ color: 'white' }} />
-                </Tooltip>
-              ) : (
-                <ListItemText
-                  primary={friend.name}
-                  secondary={`${friend.achievements} Achievements • ${friend.status ? 'Online' : 'Away'}`}
-                  primaryTypographyProps={{ color: "white" }}
-                  secondaryTypographyProps={{ color: "lightgray" }}
-                />
-              )}
-            </ListItem>
-          ))}
-        </List>
+      <Box sx={{ p: 2 }}>
+        <Typography variant="h6" component="div">
+          Mushroom Farm
+        </Typography>
       </Box>
-      <Box>
-        <Divider sx={{ mb: 1, bgcolor: 'error' }} />
-        {collapsed ? (
-          <Tooltip title="Logout" placement="right">
-            <IconButton onClick={() => handleLogout(null)} sx={{ color: 'white' }}>
+      <Divider sx={{ bgcolor: 'rgba(255,255,255,0.2)' }} />
+      <List sx={{ flexGrow: 1 }}>
+        {menuItems.map((item) => (
+          <ListItem key={item.text} disablePadding>
+            <ListItemButton
+              onClick={() => navigate(item.path)}
+              selected={location.pathname === item.path}
+              sx={{
+                '&.Mui-selected': {
+                  bgcolor: 'rgba(255,255,255,0.2)',
+                  '&:hover': {
+                    bgcolor: 'rgba(255,255,255,0.3)',
+                  },
+                },
+              }}
+            >
+              <ListItemIcon sx={{ color: 'white' }}>
+                {item.icon}
+              </ListItemIcon>
+              <ListItemText primary={item.text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+      <Divider sx={{ bgcolor: 'rgba(255,255,255,0.2)' }} />
+      <List>
+        <ListItem disablePadding>
+          <ListItemButton onClick={handleLogout}>
+            <ListItemIcon sx={{ color: 'white' }}>
               <LogoutIcon />
-            </IconButton>
-          </Tooltip>
-        ) : (
-          <Button variant="outlined" color="white" fullWidth onClick={() => handleLogout(null)}>
-            Logout
-          </Button>
-        )}
-      </Box>
+            </ListItemIcon>
+            <ListItemText primary="Logout" />
+          </ListItemButton>
+        </ListItem>
+      </List>
     </Box>
   );
-}
+};
+
+export default Sidebar;
