@@ -1,0 +1,29 @@
+schema:
+  - graph/schema.graphql
+
+exec:
+  filename: graph/generated.go
+  package: graph
+
+model:
+  filename: models/models_gen.go
+  package: models
+
+resolver:
+  layout: single-file
+  package: graph
+  filename: graph/resolver.go
+
+models:
+  User:
+    model: mushroom-farm/graph/models.User
+  Inventory:
+    model: mushroom-farm/graph/models.Inventory
+  Sale:
+    model: mushroom-farm/graph/models.Sale
+  Order:
+    model: mushroom-farm/graph/models.Order
+  WorkOrder:
+    model: mushroom-farm/graph/models.WorkOrder
+  AuthPayload:
+    model: mushroom-farm/graph/models.AuthPayload

@@ -1,14 +1,15 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Box, TextField, Button, Typography, Paper, Alert } from '@mui/material';
+import { Box, TextField, Button, Typography, Paper, Alert, CircularProgress } from '@mui/material';
 import { loginSchema } from '../schemas/validation';
-import { authAPI } from '../services/api';
 import useAuthStore from '../stores/authStore';
+import { useLogin } from '../apollo/hooks';
 
 const Login = () => {
   const [error, setError] = useState('');
   const { login } = useAuthStore();
+  const [loginMutation, { loading }] = useLogin();
 
   const {
     register,
@@ -20,11 +21,18 @@ const Login = () => {
 
   const onSubmit = async (data) => {
     try {
-      const response = await authAPI.login(data);
-      login(response.user, response.token);
+      const result = await loginMutation({
+        variables: {
+          username: data.username,
+          password: data.password,
+        },
+      });
+
+      const { token, user } = result.data.login;
+      login(user, token);
       setError('');
     } catch (err) {
-      setError('Invalid credentials');
+      setError(err.message || 'Invalid credentials');
     }
   };
 
@@ -49,6 +57,7 @@ const Login = () => {
             error={!!errors.username}
             helperText={errors.username?.message}
             sx={{ mb: 2 }}
+            disabled={loading}
           />
           <TextField
             fullWidth
@@ -58,14 +67,16 @@ const Login = () => {
             error={!!errors.password}
             helperText={errors.password?.message}
             sx={{ mb: 2 }}
+            disabled={loading}
           />
           <Button
             type="submit"
             fullWidth
             variant="contained"
             sx={{ mt: 2, py: 1.5 }}
+            disabled={loading}
           >
-            Login
+            {loading ? <CircularProgress size={24} /> : 'Login'}
           </Button>
         </Box>
       </Paper>

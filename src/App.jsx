@@ -2,7 +2,9 @@ import './App.css';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Box } from '@mui/material';
 import { useEffect } from 'react';
+import { ApolloProvider } from '@apollo/client';
 import useAuthStore from './stores/authStore';
+import { client } from './apollo/client';
 import Login from './pages/Login';
 import Home from './pages/Home';
 import Inventory from './pages/Inventory';
@@ -30,31 +32,33 @@ function App() {
     }
   }, []);
 
-  if (!isAuthenticated) {
-    return <Login />;
-  }
-
   return (
-    <Router>
-      <Box display="flex" className="app-container">
-        <Sidebar />
-        <Box flex={1} className="main-content">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/inventory" element={<Inventory />} />
-            <Route path="/management" element={<Management />} />
-            <Route path="/sales" element={<Sales />} />
-            <Route path="/orders" element={<Orders />} />
-            <Route path="/workorders" element={<WorkOrders />} />
-            <Route path="/fulfillment" element={<Fulfillment />} />
-            <Route path="/reports" element={<Reports />} />
-            <Route path="/automation" element={<Automation />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="*" element={<Navigate to="/" />} />
-          </Routes>
-        </Box>
-      </Box>
-    </Router>
+    <ApolloProvider client={client}>
+      {!isAuthenticated ? (
+        <Login />
+      ) : (
+        <Router>
+          <Box display="flex" className="app-container">
+            <Sidebar />
+            <Box flex={1} className="main-content">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/inventory" element={<Inventory />} />
+                <Route path="/management" element={<Management />} />
+                <Route path="/sales" element={<Sales />} />
+                <Route path="/orders" element={<Orders />} />
+                <Route path="/workorders" element={<WorkOrders />} />
+                <Route path="/fulfillment" element={<Fulfillment />} />
+                <Route path="/reports" element={<Reports />} />
+                <Route path="/automation" element={<Automation />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="*" element={<Navigate to="/" />} />
+              </Routes>
+            </Box>
+          </Box>
+        </Router>
+      )}
+    </ApolloProvider>
   );
 }
 

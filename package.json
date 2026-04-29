@@ -5,12 +5,15 @@
   "type": "module",
   "scripts": {
     "dev": "concurrently \"npm run server\" \"vite\"",
+    "dev:graphql": "concurrently \"npm run server:graphql\" \"vite\"",
     "server": "node backend/server.cjs",
+    "server:graphql": "cd backend/go-server && go run main.go",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@apollo/client": "^3.14.1",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@hookform/resolvers": "^5.2.2",
@@ -22,6 +25,7 @@
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "graphql": "^16.13.2",
     "jsonwebtoken": "^9.0.3",
     "mysql2": "^3.22.2",
     "react": "^19.1.0",

@@ -1,0 +1,86 @@
+{
+  "users": {
+    "1": {
+      "id": 1,
+      "username": "admin",
+      "password": "admin123",
+      "role": "admin",
+      "created_at": "2026-04-29T21:39:38+05:30"
+    }
+  },
+  "inventory": {
+    "1": {
+      "id": 1,
+      "name": "Shiitake",
+      "quantity": 100,
+      "type": "Mushroom",
+      "created_at": "2026-04-29T21:39:38+05:30"
+    },
+    "2": {
+      "id": 2,
+      "name": "Oyster",
+      "quantity": 50,
+      "type": "Mushroom",
+      "created_at": "2026-04-29T21:39:38+05:30"
+    },
+    "3": {
+      "id": 3,
+      "name": "Substrate",
+      "quantity": 200,
+      "type": "Supply",
+      "created_at": "2026-04-29T21:39:38+05:30"
+    }
+  },
+  "sales": {
+    "1": {
+      "id": 1,
+      "product": "Shiitake",
+      "quantity": 10,
+      "price": 25,
+      "date": "2026-04-29",
+      "created_at": "2026-04-29T21:39:38+05:30"
+    },
+    "2": {
+      "id": 2,
+      "product": "Oyster",
+      "quantity": 20,
+      "price": 15,
+      "date": "2026-04-29",
+      "created_at": "2026-04-29T21:39:38+05:30"
+    }
+  },
+  "orders": {
+    "1": {
+      "id": 1,
+      "customer": "John Doe",
+      "product": "Shiitake",
+      "quantity": 5,
+      "status": "pending",
+      "created_at": "2026-04-29T21:39:38+05:30"
+    },
+    "2": {
+      "id": 2,
+      "customer": "Jane Smith",
+      "product": "Oyster",
+      "quantity": 10,
+      "status": "completed",
+      "created_at": "2026-04-29T21:39:38+05:30"
+    }
+  },
+  "work_orders": {
+    "1": {
+      "id": 1,
+      "task": "Check humidity levels",
+      "assigned_to": "admin",
+      "status": "pending",
+      "created_at": "2026-04-29T21:39:38+05:30"
+    },
+    "2": {
+      "id": 2,
+      "task": "Water substrate",
+      "assigned_to": "",
+      "status": "pending",
+      "created_at": "2026-04-29T21:39:38+05:30"
+    }
+  }
+}
